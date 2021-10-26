@@ -41,14 +41,11 @@ $totalValue = 0;
 $expressCost = 5;
 $orderPrice = 0;
 $totalOrderPrice = 0;
-$deliveryTime = '';
 
 $error_array = [];
 $ordered_products = [];
 $ordered_products_name = [];
 $email = $street = $streetnumber = $city = $zipcode = "";
-
-
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     print_r($_POST);
@@ -120,15 +117,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['zipcode'] = $zipcode;
 
         $orderPrice = array_sum(array_column($ordered_products, 'price'));
-
         if (isset($_POST['express_delivery'])) {
             $totalOrderPrice = $orderPrice + $expressCost;
+            $deliveryTime = date("H:i", time() + 2700);
         } else {
             $totalOrderPrice = $orderPrice;
+            $deliveryTime = date("H:i", time() + 7200);
         }
 
-
-        echo '<p class="alert alert-success">Order has been placed succesfully! Your total is ' . $totalOrderPrice . '</p>';
+        echo '<p class="alert alert-success">Order has been placed succesfully! Total amount is ' . $totalOrderPrice . ' euros.
+         Estimated delivery time is ' . $deliveryTime . '.</p>';
     }
 }
 
