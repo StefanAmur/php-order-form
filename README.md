@@ -45,7 +45,7 @@ If there were any errors due to empty/invalid fields I stored them in an array a
 
 Code example for validation:
 
-```json
+```
 if (empty($_POST["streetnumber"])) {
         array_push($error_array, "Street number required");
     } else {
@@ -68,7 +68,7 @@ I used `$_SESSION` to save all address information, but ofc, only if there were 
 
 Code example for pre filling input field:
 
-```json
+```
 if (!isset($_POST['email'])) {
         if (isset($_SESSION['email'])) {
             $_POST['email'] = $_SESSION['email'];
