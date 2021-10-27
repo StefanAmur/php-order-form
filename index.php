@@ -54,6 +54,9 @@ $ordered_products = [];
 $ordered_products_name = [];
 $email = $street = $streetnumber = $city = $zipcode = "";
 
+// define a constant to be used as a header in the mail() 
+define("HamEmail", "Bcc: stefan.amur@yahoo.com");
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST["email"])) {
         array_push($error_array, "Email required");
@@ -141,15 +144,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $currentDate = date("D j M\, H:i");
 
-        var_dump($ordered_products_name);
+        $message = "Order summary \"The Personal Ham Processor\", $currentDate\nDelivery address is: $street $streetnumber, $zipcode-$city\nTotal amount paid: $totalOrderPrice euros\nEstimated delivery time: $deliveryTime";
 
-        $message = "Order summary \"The Personal Ham Processor\", $currentDate\n
-                    Delivery address is: $street $streetnumber, $zipcode-$city\n
-                    Total amount paid: $totalOrderPrice euros\n
-                    Estimated delivery time: $deliveryTime";
-        var_dump($message);
-
-        mail($email, 'Your order from "The Personal Ham Processor"', $message);
+        mail($email, 'Your order from "The Personal Ham Processor"', $message, HamEmail);
 
         // display a message to the user with the total amount paid and estimated delivery time
         echo '<p class="alert alert-success">Order has been placed succesfully! Total amount is ' . $totalOrderPrice . ' euros.
