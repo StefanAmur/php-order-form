@@ -41,11 +41,13 @@ We had 3 days to complete it (25/10 - 27/10) and it was a solo exercise.
 Went well, for email validation I used `FILTER_VALIDATE_EMAIL` as it was a tip in the assignment.  
 For the validity part of the other fields, I used RegEx to validate them.  
 For the "fields required" I just checked if they were empty.  
+> 🤔 💡 I could have used only RegEx for both empty field and correct format validation. The way I set up RegEx, it already checks if the string has at least one character. Might look into using only RegEx but still have different error messages depending on what check fails.
+
 If there were any errors due to empty/invalid fields I stored them in an array and display each of them to the user.
 
 Code example for validation:
 
-```json
+```
 if (empty($_POST["streetnumber"])) {
         array_push($error_array, "Street number required");
     } else {
@@ -68,7 +70,7 @@ I used `$_SESSION` to save all address information, but ofc, only if there were 
 
 Code example for pre filling input field:
 
-```json
+```
 if (!isset($_POST['email'])) {
         if (isset($_SESSION['email'])) {
             $_POST['email'] = $_SESSION['email'];
